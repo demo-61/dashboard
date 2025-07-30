@@ -18,13 +18,11 @@ function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
-          {isAuthenticated ? (
-            <SimpleDashboard onLogout={handleLogout} />
-          ) : (
-            <LoginPage onLogin={handleLogin} />
-          )}
-        </div>
+        {isAuthenticated ? (
+          <SimpleDashboard onLogout={handleLogout} />
+        ) : (
+          <LoginPage onLogin={handleLogin} />
+        )}
       </LanguageProvider>
     </ThemeProvider>
   );

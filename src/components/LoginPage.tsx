@@ -55,11 +55,13 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     }
   };
 
+  const fontFamilyClass = language === "ar" ? "font-riwaya" : "font-hagrid";
+
   return (
-    <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+    <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="max-w-md w-full mx-4">
         {/* Language and Theme Toggles */}
-        <div className="flex justify-between mb-6">
+        <div className="flex justify-between my-6">
           <LanguageToggle />
           <ThemeToggle />
         </div>
@@ -152,14 +154,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             </button>
           </form>
 
-          {/* Demo Credentials */}
-          <div className="mt-6 p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
-            <p className="text-xs text-gray-600 dark:text-gray-400 text-center">
-              <strong>{t('demoCredentials')}</strong><br />
-              {t('email')}: admin@resumeenhancer.com<br />
-              {t('password')}: admin123
-            </p>
-          </div>
+         
         </div>
       </div>
     </div>

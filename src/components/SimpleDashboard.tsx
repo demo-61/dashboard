@@ -176,8 +176,10 @@ fetchWeeklyResume()
   ];
   const maxResumes = chartData.length > 0 ? Math.max(...chartData.map((d: WeeklyResumeItem) => d.resumes ?? d.total_resumes ?? 0)) : 0;
 
+  const fontFamilyClass = language === "ar" ? "font-riwaya" : "font-hagrid";
+
   return (
-    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${language === 'ar' ? 'ltr' : 'ltr'}`}>
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="space-y-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">

@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.lang-ar {
+  font-family: '29LT Riwaya';
+}
+
+.lang-en {
+  font-family: 'Hagrid';
+}
+
+.font-riwaya {
+  font-family: '29LT Riwaya';
+}
+
+.font-hagrid {
+  font-family: 'Hagrid';
+}

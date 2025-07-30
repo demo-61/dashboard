@@ -69,8 +69,8 @@ const translations = {
     // Login Page
     // adminLogin: 'Admin Login',
      adminLogin: ' Login',
-    // resumeEnhancerDashboard: 'Resume Enhancer Dashboard',
-        resumeEnhancerDashboard: ' Dashboard',
+    resumeEnhancerDashboard: 'Resume Enhancer Dashboard',
+        // resumeEnhancerDashboard: ' Dashboard',
     emailAddress: 'Email Address',
     password: 'Password',
     signIn: 'Sign In',

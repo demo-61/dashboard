@@ -8,6 +8,12 @@ interface LoginPageProps {
   onLogin: () => void;
 }
 
+interface ApiResponse {
+  access_token: string;
+  token_type: string;
+  // Add other response fields if needed
+}
+
 const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -21,15 +27,32 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     setError('');
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      if (email === 'admin@resumeenhancer.com' && password === 'admin123') {
-        onLogin();
-      } else {
-        setError(t('invalidCredentials'));
+    try {
+      const formData = new FormData();
+      formData.append('username', email);
+      formData.append('password', password);
+
+      const response = await fetch('https://admin.cvaluepro.com/dashboard/token', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(t('invalidCredentials'));
       }
+
+      const data: ApiResponse = await response.json();
+      
+      // Store the access token in localStorage
+      localStorage.setItem('access_token', data.access_token);
+      
+      // Call the onLogin callback
+      onLogin();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : t('loginFailed'));
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -74,7 +97,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={`block w-full ${language === 'ar' ? 'pr-10 pl-3' : 'pl-10 pr-3'} py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition-colors bg-white dark:bg-gray-700 text-gray-900 dark:text-white`}
-                  placeholder="admin@resumeenhancer.com"
+                  placeholder="example@admin.com"
                   required
                 />
               </div>
@@ -143,4 +166,4 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   );
 };
 
-export default LoginPage;
+export default LoginPage; 

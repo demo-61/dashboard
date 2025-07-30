@@ -11,12 +11,46 @@ interface SimpleDashboardProps {
 
 const SimpleDashboard: React.FC<SimpleDashboardProps> = ({ onLogout }) => {
   const { language, t } = useLanguage();
-  const [saleData, setSaleData] = useState()
-const [saleTax, setSaleTax] = useState()
-const [processedresumes, setProcessedResumes] = useState()
-const [avgprocessingresume, setAvgProcessingResume] = useState()
-const [failedresume, setFailedResume ] = useState()
-const [weeklyresume, setWeeklyResume] = useState()
+  interface SaleData {
+    data?: {
+      total_sales_this_month?: number;
+    };
+  }
+  interface SaleTax {
+    data?: {
+      monthly_tax_total?: number;
+    };
+  }
+  interface ProcessedResumes {
+    data?: {
+      total_processed_resumes?: number;
+    };
+  }
+  interface FailedResume {
+    data?: {
+      total_failed_resumes?: number;
+    };
+  }
+  interface AvgProcessingResume {
+    data?: {
+      average_processing_time_seconds?: number;
+    };
+  }
+  const [saleData, setSaleData] = useState<SaleData | null>(null);
+  const [saleTax, setSaleTax] = useState<SaleTax | null>(null);
+  const [processedresumes, setProcessedResumes] = useState<ProcessedResumes | null>(null);
+  const [avgprocessingresume, setAvgProcessingResume] = useState<AvgProcessingResume | null>(null);
+  const [failedresume, setFailedResume] = useState<FailedResume | null>(null);
+  interface WeeklyResumeItem {
+    day_of_week?: string;
+    day?: string;
+    total_resumes?: number;
+    resumes?: number;
+  }
+  interface WeeklyResumeData {
+    weekly_resume_processing: WeeklyResumeItem[];
+  }
+  const [weeklyresume, setWeeklyResume] = useState<{ data?: WeeklyResumeData } | null>(null);
 
 
 console.log("jfgd", weeklyresume)
@@ -130,17 +164,17 @@ fetchWeeklyResume()
     return 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-200 dark:border-gray-600';
   };
 
-  const chartData = [
-    { day: t('monday'), resumes: 180 },
-    { day: t('tuesday'), resumes: 160 },
-    { day: t('wednesday'), resumes: 220 },
-    { day: t('thursday'), resumes: 195 },
-    { day: t('friday'), resumes: 280 },
-    { day: t('saturday'), resumes: 350 },
-    { day: t('sunday'), resumes: 290 }
+  // Use weeklyresume data if available, else fallback to static chartData
+  const chartData: WeeklyResumeItem[] = weeklyresume?.data?.weekly_resume_processing || [
+    { day_of_week: t('monday'), resumes: 180 },
+    { day_of_week: t('tuesday'), resumes: 160 },
+    { day_of_week: t('wednesday'), resumes: 220 },
+    { day_of_week: t('thursday'), resumes: 195 },
+    { day_of_week: t('friday'), resumes: 280 },
+    { day_of_week: t('saturday'), resumes: 350 },
+    { day_of_week: t('sunday'), resumes: 290 }
   ];
-
-  const maxResumes = Math.max(...chartData.map(d => d.resumes));
+  const maxResumes = chartData.length > 0 ? Math.max(...chartData.map((d: WeeklyResumeItem) => d.resumes ?? d.total_resumes ?? 0)) : 0;
 
   return (
     <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${language === 'ar' ? 'ltr' : 'ltr'}`}>
@@ -256,20 +290,25 @@ fetchWeeklyResume()
           </div>
 
           <div className="space-y-4">
-            {weeklyresume?.data?.weekly_resume_processing.map((item, index) => (
-              <div key={index} className="space-y-2">
-                <div className="flex justify-between items-center text-sm">
-                  <span className="font-medium text-gray-700 dark:text-gray-300">{item.day_of_week}</span>
-                  <span className="text-gray-800 dark:text-gray-200 font-medium">{item.total_resumes} {t('resumes')}</span>
+            {chartData.map((item: WeeklyResumeItem, index: number) => {
+              // Support both API and fallback data
+              const day = item.day_of_week || item.day;
+              const resumes = item.total_resumes ?? item.resumes ?? 0;
+              return (
+                <div key={index} className="space-y-2">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="font-medium text-gray-700 dark:text-gray-300">{day}</span>
+                    <span className="text-gray-800 dark:text-gray-200 font-medium">{resumes} {t('resumes')}</span>
+                  </div>
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                    <div
+                      className="h-3 bg-gray-800 dark:bg-gray-400 transition-all duration-700 ease-out rounded-full"
+                      style={{ width: `${maxResumes ? (resumes / maxResumes) * 100 : 0}%` }}
+                    />
+                  </div>
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                  <div
-                    className="h-3 bg-gray-800 dark:bg-gray-400 transition-all duration-700 ease-out rounded-full"
-                    style={{ width: `${(item.resumes / maxResumes) * 100}%` }}
-                  />
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 

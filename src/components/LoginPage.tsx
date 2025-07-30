@@ -61,7 +61,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
     <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       <div className="max-w-md w-full mx-4">
         {/* Language and Theme Toggles */}
-        <div className="flex justify-between mb-6 sm:mt-0 mt-3">
+        <div className="flex justify-between mb-6 ">
           <LanguageToggle />
           <ThemeToggle />
         </div>

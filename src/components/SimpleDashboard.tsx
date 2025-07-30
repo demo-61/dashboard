@@ -4,7 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 import ThemeToggle from './ThemeToggle';
 import { getSalesData, getSalesTax, getProcessedResumes, getAvgProcessingTime, getFailedResume, getWeeklyResume } from '../api'
-
+import { RxCrossCircled } from "react-icons/rx";
 interface SimpleDashboardProps {
   onLogout: () => void;
 }
@@ -180,6 +180,7 @@ fetchWeeklyResume()
               <p className="text-xs text-gray-500 dark:text-gray-400">{t('currentlyActiveUsers')}</p>
             </div>
           </div>
+          
 
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
             <div className="flex items-center justify-between mb-4">
@@ -223,7 +224,7 @@ fetchWeeklyResume()
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
             <div className="flex items-center justify-between mb-4">
               <div className={`p-3 rounded-xl border ${getColorClasses('gray')}`}> 
-                <CheckCircle size={24} />
+                <RxCrossCircled  size={24} />
               </div>
             </div>
             <div className="space-y-1">

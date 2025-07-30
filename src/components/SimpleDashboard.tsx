@@ -53,7 +53,7 @@ const SimpleDashboard: React.FC<SimpleDashboardProps> = ({ onLogout }) => {
   const [weeklyresume, setWeeklyResume] = useState<{ data?: WeeklyResumeData } | null>(null);
 
 
-console.log("jfgd", weeklyresume)
+
   const fetchSalesData = async () => {
     const token = localStorage.getItem('access_token');
     if (!token) {

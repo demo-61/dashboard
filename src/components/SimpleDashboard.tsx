@@ -5,6 +5,7 @@ import LanguageToggle from './LanguageToggle';
 import ThemeToggle from './ThemeToggle';
 import { getSalesData, getSalesTax, getProcessedResumes, getAvgProcessingTime, getFailedResume, getWeeklyResume } from '../api'
 import { RxCrossCircled } from "react-icons/rx";
+import { IoReload } from "react-icons/io5";
 interface SimpleDashboardProps {
   onLogout: () => void;
 }
@@ -179,7 +180,7 @@ fetchWeeklyResume()
   const fontFamilyClass = language === "ar" ? "font-riwaya" : "font-hagrid";
 
   return (
-    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${fontFamilyClass} ${language === 'ar' ? 'ltr' : 'ltr'}`}>
       <div className="space-y-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -187,9 +188,23 @@ fetchWeeklyResume()
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">{t('dashboardTitle')}</h1>
             <p className="text-gray-600 dark:text-gray-400">{t('dashboardSubtitle')}</p>
           </div>
-          <div className="mt-4 sm:mt-0 flex items-center space-x-4">
+          <div className="mt-4 sm:mt-0 flex  items-center space-x-4">
+             <button
+              onClick={() => {
+                fetchSalesData();
+                fetctSaleTax();
+                fetchProcessedResumes();
+                fetchavgprocessingresume();
+                fetchFailedResume();
+                fetchWeeklyResume();
+              }}
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700  transition-colors border rounded-xl"
+            >
+              <IoReload  className=''/>
+            </button>
             <LanguageToggle />
             <ThemeToggle />
+          
             <button
               onClick={onLogout}
               className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"

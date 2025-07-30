@@ -58,7 +58,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const fontFamilyClass = language === "ar" ? "font-riwaya" : "font-hagrid";
 
   return (
-    <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+    <div className={`min-h-screen flex  justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 ${fontFamilyClass} ${language === 'ar' ? 'ltr' : 'ltr'}`}>
       <div className="max-w-md w-full mx-4">
         {/* Language and Theme Toggles */}
         <div className="flex justify-between mb-6 ">

@@ -13,6 +13,8 @@ const translations = {
     // Login Page
     adminLogin: 'تسجيل دخول المدير',
     resumeEnhancerDashboard: 'لوحة تحكم محسن السيرة الذاتية',
+    'Resumes Not Purchased': 'السير الذاتية غير المشتراة',
+    'Incomplete Payments': 'المدفوعات غير المكتملة',
     emailAddress: 'عنوان البريد الإلكتروني',
     password: 'كلمة المرور',
     signIn: 'تسجيل الدخول',
@@ -70,6 +72,8 @@ const translations = {
     // adminLogin: 'Admin Login',
      adminLogin: ' Login',
     resumeEnhancerDashboard: 'Resume Enhancer Dashboard',
+    'Resumes Not Purchased': 'Resumes Not Purchased',
+    'Incomplete Payments': 'Incomplete Payments',
         // resumeEnhancerDashboard: ' Dashboard',
     emailAddress: 'Email Address',
     password: 'Password',

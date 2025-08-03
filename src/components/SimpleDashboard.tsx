@@ -6,6 +6,7 @@ import ThemeToggle from './ThemeToggle';
 import { getSalesData, getSalesTax, getProcessedResumes, getAvgProcessingTime, getFailedResume, getWeeklyResume } from '../api'
 import { RxCrossCircled } from "react-icons/rx";
 import { IoReload } from "react-icons/io5";
+import Buttons from './Buttons';
 interface SimpleDashboardProps {
   onLogout: () => void;
 }
@@ -52,6 +53,7 @@ const SimpleDashboard: React.FC<SimpleDashboardProps> = ({ onLogout }) => {
     weekly_resume_processing: WeeklyResumeItem[];
   }
   const [weeklyresume, setWeeklyResume] = useState<{ data?: WeeklyResumeData } | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
 
 
@@ -180,7 +182,26 @@ fetchWeeklyResume()
   const fontFamilyClass = language === "ar" ? "font-riwaya" : "font-hagrid";
 
   return (
-    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${fontFamilyClass} ${language === 'ar' ? 'ltr' : 'ltr'}`}>
+    <>
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${fontFamilyClass} ${language === 'ar' ? 'ltr' : 'ltr'} relative`}>
+      {isRefreshing && (
+        <div className="absolute inset-0 bg-white/50 dark:bg-gray-900/50 z-50 backdrop-blur-[2px] transition-all duration-300">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-2xl flex flex-col items-center space-y-4 min-w-[200px] transform transition-all duration-500 scale-100 opacity-100">
+              <div className="relative">
+                <div className="w-12 h-12 rounded-full border-4 border-gray-200 dark:border-gray-700 animate-[spin_3s_linear_infinite]">
+                  <div className="absolute inset-0 rounded-full border-t-4 border-blue-500 dark:border-blue-400 animate-[spin_1.5s_cubic-bezier(0.5,0,0.5,1)_infinite]"></div>
+                </div>
+                <IoReload className="absolute inset-0 m-auto text-2xl text-gray-600 dark:text-gray-300" />
+              </div>
+              <div className="text-center space-y-2">
+                <h3 className="text-gray-900 dark:text-white font-medium">{t('refreshing') || 'Refreshing Dashboard'}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{t('pleaseWait') || 'Please wait while we update your data'}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="space-y-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -190,17 +211,25 @@ fetchWeeklyResume()
           </div>
           <div className="mt-4 sm:mt-0 flex  items-center space-x-4">
              <button
-              onClick={() => {
-                fetchSalesData();
-                fetctSaleTax();
-                fetchProcessedResumes();
-                fetchavgprocessingresume();
-                fetchFailedResume();
-                fetchWeeklyResume();
+              onClick={async () => {
+                setIsRefreshing(true);
+                try {
+                  await Promise.all([
+                    fetchSalesData(),
+                    fetctSaleTax(),
+                    fetchProcessedResumes(),
+                    fetchavgprocessingresume(),
+                    fetchFailedResume(),
+                    fetchWeeklyResume()
+                  ]);
+                } finally {
+                  setIsRefreshing(false);
+                }
               }}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700  transition-colors border rounded-xl"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border rounded-xl"
+              disabled={isRefreshing}
             >
-              <IoReload  className=''/>
+              <IoReload className={`text-black dark:text-white ${isRefreshing ? 'animate-spin' : ''}`}/>
             </button>
             <LanguageToggle />
             <ThemeToggle />
@@ -358,6 +387,8 @@ fetchWeeklyResume()
         </div>
       </div>
     </div>
+    <Buttons />
+    </>
   );
 };
 

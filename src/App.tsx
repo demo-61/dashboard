@@ -6,7 +6,8 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import { ThemeProvider } from './contexts/ThemeContext';
 import PDFUploader from './components/Uploader';
 import { CoverLetterPreview } from './components/CoverLetterPreview';
-// import CoverLetterPreview from './components/CoverLetterPreview';
+import LinkedInOptimization from './components/LinkedInOptimization';
+import CVEnhancement from './components/CVEnhancement';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -35,7 +36,7 @@ function App() {
               path="/cv-enhancement" 
               element={
                 isAuthenticated ? (
-                  <PDFUploader title="CV Enhancement" />
+                  <CVEnhancement />
                 ) : (
                   <Navigate to="/" replace />
                 )
@@ -46,6 +47,16 @@ function App() {
               element={
                 isAuthenticated ? (
                   <PDFUploader title="Cover Letter" />
+                ) : (
+                  <Navigate to="/" replace />
+                )
+              } 
+            />
+            <Route 
+              path="/linkedin-optimization" 
+              element={
+                isAuthenticated ? (
+                  <LinkedInOptimization />
                 ) : (
                   <Navigate to="/" replace />
                 )

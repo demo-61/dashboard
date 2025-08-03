@@ -216,7 +216,7 @@ export function CoverLetterPreview() {
   };
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-white via-gray-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-black dark:text-white transition-colors ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+    <div className={`min-h-screen bg-gradient-to-br max-w-[1800px] from-white via-gray-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-black dark:text-white transition-colors ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       
       <main className="container mx-auto px-4 py-6 sm:py-8 pt-16 sm:pt-24">
         {/* Payment Form Modal */}

@@ -183,7 +183,7 @@ fetchWeeklyResume()
 
   return (
     <>
-    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'} relative`}>
+    <div className={`max-w-[1800px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'} relative`}>
       {isRefreshing && (
         <div className="absolute inset-0 bg-white/50 dark:bg-gray-900/50 z-50 backdrop-blur-[2px] transition-all duration-300">
           <div className="absolute inset-0 flex items-center justify-center">

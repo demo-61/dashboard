@@ -9,7 +9,8 @@ const Buttons: React.FC = () => {
   const fontFamilyClass = language === "ar" ? "font-riwaya" : "font-hagrid";
 
   return (
-    <div className={`flex flex-col sm:flex-row gap-4 mb-10 max-w-4xl mx-auto items-center justify-center sm:justify-between p-4 ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+    <div className={`flex flex-col sm:flex-row gap-4 max-w-[1800px] mx-auto items-center justify-center sm:justify-between bg-white dark:bg-gray-900 p-4 ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+      
       <button 
         className="w-full sm:w-auto px-6 py-3 bg-black dark:bg-gray-700 text-white rounded-md hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors font-medium"
         onClick={() => navigate('/cv-enhancement')}

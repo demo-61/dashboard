@@ -31,6 +31,26 @@ const CVEnhancement: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [error, setError] = useState<string>('');
 
+  // Download both PDFs (classic and modern) when button is clicked
+  const handleDownloadBoth = () => {
+    if (!pdfUrls) return;
+    // Download Classic
+    const linkClassic = document.createElement('a');
+    linkClassic.href = pdfUrls.classic;
+    linkClassic.download = 'Classic_Resume.pdf';
+    document.body.appendChild(linkClassic);
+    linkClassic.click();
+    document.body.removeChild(linkClassic);
+
+    // Download Modern
+    const linkModern = document.createElement('a');
+    linkModern.href = pdfUrls.modern;
+    linkModern.download = 'Modern_Resume.pdf';
+    document.body.appendChild(linkModern);
+    linkModern.click();
+    document.body.removeChild(linkModern);
+  };
+
   // Set mobile state on mount
   useEffect(() => {
     setIsMobile(isMobileDevice());
@@ -300,8 +320,9 @@ const CVEnhancement: React.FC = () => {
 
         {/* Modal */}
         {showModal && pdfUrls && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white dark:bg-gray-800 w-full max-w-7xl h-full max-h-[90vh] rounded-lg p-4 sm:p-6 relative overflow-hidden">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ">
+            <div className="bg-white dark:bg-gray-800 w-full max-w-7xl h-screen  rounded-lg p-4 sm:p-6 relative overflow-hidden">
+              {/* Close button */}
               <button
                 onClick={handleCloseModal}
                 className="absolute top-4 right-4 z-10 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white bg-white dark:bg-gray-800 rounded-full p-2 shadow-lg"
@@ -310,37 +331,32 @@ const CVEnhancement: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
+              {/* Download button on top right, next to close */}
+              <button
+                onClick={handleDownloadBoth}
+                className="absolute top-4 right-16 z-10 px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white rounded-md hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors font-medium shadow-lg"
+              >
+                {t('download')} (PDF)
+              </button>
               <div className={`h-full ${isMobile ? 'flex-col space-y-4' : 'flex gap-4'} pt-12 sm:pt-8`}>
                 <div className={`${isMobile ? 'w-full' : 'w-1/2'} h-full`}>
                   <h2 className="text-lg sm:text-xl font-semibold mb-4 text-gray-900 dark:text-white">Classic Resume</h2>
                   <div className="h-[calc(100%-3rem)] relative bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden">
-                    <object
-                      data={pdfUrls.classic}
+                    <iframe
+                      src={`${pdfUrls.classic}#toolbar=0`}
                       className="w-full h-full border border-gray-200 dark:border-gray-600 rounded"
-                      type="application/pdf"
-                    >
-                      <embed
-                        src={pdfUrls.classic}
-                        className="w-full h-full"
-                        type="application/pdf"
-                      />
-                    </object>
+                      title="Classic Resume PDF"
+                    />
                   </div>
                 </div>
                 <div className={`${isMobile ? 'w-full' : 'w-1/2'} h-full`}>
                   <h2 className="text-lg sm:text-xl font-semibold mb-4 text-gray-900 dark:text-white">Modern Resume</h2>
                   <div className="h-[calc(100%-3rem)] relative bg-gray-50 dark:bg-gray-700 rounded-lg overflow-hidden">
-                    <object
-                      data={pdfUrls.modern}
+                    <iframe
+                      src={`${pdfUrls.modern}#toolbar=0`}
                       className="w-full h-full border border-gray-200 dark:border-gray-600 rounded"
-                      type="application/pdf"
-                    >
-                      <embed
-                        src={pdfUrls.modern}
-                        className="w-full h-full"
-                        type="application/pdf"
-                      />
-                    </object>
+                      title="Modern Resume PDF"
+                    />
                   </div>
                 </div>
               </div>

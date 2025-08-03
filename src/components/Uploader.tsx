@@ -145,6 +145,13 @@ const PDFUploader: React.FC<PDFUploaderProps> = ({ title }) => {
             console.error('Error uploading file:', err);
             setError('Failed to upload. Please try again.');
             setIsLoading(false);
+        }finally {
+            setFormData({
+                company: '',
+                location: '',
+                job_title: '',
+                job_description: ''
+            });
         }
     };
     const handleDeleteSession = async (sessionId: string) => {

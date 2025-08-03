@@ -183,7 +183,7 @@ fetchWeeklyResume()
 
   return (
     <>
-    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${fontFamilyClass} ${language === 'ar' ? 'ltr' : 'ltr'} relative`}>
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 bg-white dark:bg-gray-900 min-h-screen transition-colors ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'} relative`}>
       {isRefreshing && (
         <div className="absolute inset-0 bg-white/50 dark:bg-gray-900/50 z-50 backdrop-blur-[2px] transition-all duration-300">
           <div className="absolute inset-0 flex items-center justify-center">
@@ -206,10 +206,10 @@ fetchWeeklyResume()
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">{t('dashboardTitle')}</h1>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2">{t('dashboardTitle')}</h1>
             <p className="text-gray-600 dark:text-gray-400">{t('dashboardSubtitle')}</p>
           </div>
-          <div className="mt-4 sm:mt-0 flex  items-center space-x-4">
+          <div className="mt-4 sm:mt-0 flex flex-wrap items-center gap-2 sm:gap-4">
              <button
               onClick={async () => {
                 setIsRefreshing(true);
@@ -228,6 +228,7 @@ fetchWeeklyResume()
               }}
               className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors border rounded-xl"
               disabled={isRefreshing}
+              title={t('refreshing')}
             >
               <IoReload className={`text-black dark:text-white ${isRefreshing ? 'animate-spin' : ''}`}/>
             </button>
@@ -246,82 +247,82 @@ fetchWeeklyResume()
    
 
         {/* Metrics Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Manually render each metric card */}
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-4 sm:p-6 hover:shadow-lg transition-shadow duration-200">
             <div className="flex items-center justify-between mb-4">
               <div className={`p-3 rounded-xl border ${getColorClasses('gray')}`}> 
                 <Users size={24} />
               </div>
             </div>
             <div className="space-y-1">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">2,847</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">2,847</h3>
               <p className="text-sm font-medium text-gray-900 dark:text-white">{t('activeUsers')}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">{t('currentlyActiveUsers')}</p>
             </div>
           </div>
           
 
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-4 sm:p-6 hover:shadow-lg transition-shadow duration-200">
             <div className="flex items-center justify-between mb-4">
               <div className={`p-3 rounded-xl border ${getColorClasses('gray')}`}> 
                 <DollarSign size={24} />
               </div>
             </div>
             <div className="space-y-1">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{saleData?.data?.total_sales_this_month}</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{saleData?.data?.total_sales_this_month}</h3>
               <p className="text-sm font-medium text-gray-900 dark:text-white">{t('totalSales')}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">{t('revenueThisMonth')}</p>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-4 sm:p-6 hover:shadow-lg transition-shadow duration-200">
             <div className="flex items-center justify-between mb-4">
               <div className={`p-3 rounded-xl border ${getColorClasses('gray')}`}> 
                 <Calculator size={24} />
               </div>
             </div>
             <div className="space-y-1">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{saleTax?.data?.monthly_tax_total}</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{saleTax?.data?.monthly_tax_total}</h3>
               <p className="text-sm font-medium text-gray-900 dark:text-white">{t('totalTax')}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">{t('taxCollectedThisMonth')}</p>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-4 sm:p-6 hover:shadow-lg transition-shadow duration-200">
             <div className="flex items-center justify-between mb-4">
               <div className={`p-3 rounded-xl border ${getColorClasses('gray')}`}> 
                 <FileText size={24} />
               </div>
             </div>
             <div className="space-y-1">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{processedresumes?.data?.total_processed_resumes}</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{processedresumes?.data?.total_processed_resumes}</h3>
               <p className="text-sm font-medium text-gray-900 dark:text-white">{t('processedResumes')}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">{t('totalResumesProcessed')}</p>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-4 sm:p-6 hover:shadow-lg transition-shadow duration-200">
             <div className="flex items-center justify-between mb-4">
               <div className={`p-3 rounded-xl border ${getColorClasses('gray')}`}> 
                 <RxCrossCircled  size={24} />
               </div>
             </div>
             <div className="space-y-1">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{failedresume?.data?.total_failed_resumes}</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{failedresume?.data?.total_failed_resumes}</h3>
               <p className="text-sm font-medium text-gray-900 dark:text-white">{t('Resumes Not Purchased')}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">{t('Incomplete Payments')}</p>
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-6 hover:shadow-lg transition-shadow duration-200">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-4 sm:p-6 hover:shadow-lg transition-shadow duration-200">
             <div className="flex items-center justify-between mb-4">
               <div className={`p-3 rounded-xl border ${getColorClasses('gray')}`}> 
                 <Clock size={24} />
               </div>
             </div>
             <div className="space-y-1">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{avgprocessingresume?.data?.average_processing_time_seconds}</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{avgprocessingresume?.data?.average_processing_time_seconds}</h3>
               <p className="text-sm font-medium text-gray-900 dark:text-white">{t('avgProcessingTime')}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400">{t('averageTimePerResume')}</p>
             </div>
@@ -329,9 +330,9 @@ fetchWeeklyResume()
         </div>
 
         {/* Weekly Resume Processing Chart */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-6">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-4 sm:p-6">
           <div className="mb-6">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('weeklyResumeProcessing')}</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{t('weeklyResumeProcessing')}</h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">{t('dailyResumeProcessingVolume')}</p>
           </div>
 
@@ -359,9 +360,9 @@ fetchWeeklyResume()
         </div>
 
         {/* System Status */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-6">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">{t('systemStatus')}</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-300 dark:border-gray-700 p-4 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-4">{t('systemStatus')}</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="flex items-center space-x-3 p-4 bg-gray-100 dark:bg-gray-700 rounded-xl">
               <div className="w-3 h-3 bg-gray-800 dark:bg-gray-400 rounded-full animate-pulse"></div>
               <div>

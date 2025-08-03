@@ -2,6 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ensure proper RTL/LTR support */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="ltr"] {
+  direction: ltr;
+}
+
+/* Custom scrollbar for dark mode */
+@layer base {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100 dark:bg-gray-800;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-500;
+  }
+}
+
+/* Font families */
 .lang-ar {
   font-family: '29LT Riwaya';
 }
@@ -16,4 +46,40 @@
 
 .font-hagrid {
   font-family: 'Hagrid';
+}
+
+/* Responsive utilities */
+@layer utilities {
+  .scale-102 {
+    transform: scale(1.02);
+  }
+  
+  /* Better focus styles */
+  .focus-visible\:ring-offset-dark:focus-visible {
+    --tw-ring-offset-color: rgb(17 24 39);
+  }
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Ensure proper text rendering */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Better mobile touch targets */
+@media (max-width: 768px) {
+  button, 
+  [role="button"], 
+  input[type="submit"], 
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }

@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useLanguage } from '../contexts/LanguageContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 import { Loader2, Download, Eye, ArrowLeft, FileText, AlertCircle, ExternalLink } from 'lucide-react';
 
@@ -27,6 +29,8 @@ const isIOS = (): boolean => {
 export function CoverLetterPreview() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t, language } = useLanguage();
+  const { theme } = useTheme();
   const state = location.state as LocationState;
   // Store resume_id (integer) for API call after payment
   const resumeIdRef = useRef<number | null>(state?.resume_id ?? null);
@@ -39,6 +43,8 @@ export function CoverLetterPreview() {
   const [mobileImageLoading, setMobileImageLoading] = useState(false);
   // Full screen image modal state
   const [fullScreenImg, setFullScreenImg] = useState<string | null>(null);
+
+  const fontFamilyClass = language === "ar" ? "font-riwaya" : "font-hagrid";
 
   useEffect(() => {
     setIsMobile(isMobileDevice());
@@ -210,16 +216,16 @@ export function CoverLetterPreview() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-white text-black">
+    <div className={`min-h-screen bg-gradient-to-br from-white via-gray-50 to-white dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-black dark:text-white transition-colors ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
       
-      <main className="container mx-auto px-4 py-8 pt-24">
+      <main className="container mx-auto px-4 py-6 sm:py-8 pt-16 sm:pt-24">
         {/* Payment Form Modal */}
         {showPaymentForm && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
-            <div className="relative w-full max-w-md p-6 rounded-xl bg-white border border-gray-200">
+            <div className="relative w-full max-w-md p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
               <button
                 onClick={() => setShowPaymentForm(false)}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100"
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -233,29 +239,35 @@ export function CoverLetterPreview() {
         <div className="mb-6">
           <button
             onClick={handleBackClick}
-            className="group flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 bg-white hover:bg-gray-50 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow"
+            className="group flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 shadow-sm hover:shadow"
           >
-            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            <span className="font-medium">Back</span>
+            {language === 'ar' ? (
+              <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            ) : (
+              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+            )}
+            <span className="font-medium">{t('back')}</span>
           </button>
         </div>
 
         {/* Page Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 sm:mb-8">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Eye className="w-6 h-6 md:w-8 md:h-8" />
             <h1 className="text-2xl md:text-4xl font-bold">
-              Cover Letter Preview
+              {t('preview')}
             </h1>
           </div>
-          <p className="text-base md:text-lg max-w-2xl mx-auto text-gray-600">
-            Preview and download your cover letter
+          <p className="text-base md:text-lg max-w-2xl mx-auto text-gray-600 dark:text-gray-400">
+            {t('preview')} {t('download')}
           </p>
         </div>
 
         {isLoading && (
           <div className="flex flex-col items-center justify-center min-h-[60vh]">
-            <div className="relative p-6 md:p-8 rounded-2xl bg-white/80 border border-gray-200 shadow-xl">
+            <div className="relative p-6 md:p-8 rounded-2xl bg-white/80 dark:bg-gray-800/80 border border-gray-200 dark:border-gray-700 shadow-xl">
               <div className="flex flex-col items-center">
                 <div className="relative">
                   <Loader2 className="w-12 h-12 md:w-16 md:h-16 animate-spin text-blue-500" />
@@ -266,10 +278,10 @@ export function CoverLetterPreview() {
                 </div>
                 <div className="mt-6 text-center">
                   <h3 className="text-lg md:text-xl font-semibold mb-2">
-                    Preparing Your Cover Letter...
+                    {t('processing')}
                   </h3>
-                  <p className="text-sm md:text-base text-gray-600">
-                    We're preparing your cover letter
+                  <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">
+                    {t('pleaseWait')}
                   </p>
                 </div>
               </div>
@@ -280,12 +292,12 @@ export function CoverLetterPreview() {
         {/* Error State */}
         {error && !isLoading && (
           <div className="flex flex-col items-center justify-center min-h-[60vh]">
-            <div className="relative p-6 md:p-8 rounded-2xl text-center bg-red-50 border border-red-200">
+            <div className="relative p-6 md:p-8 rounded-2xl text-center bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
               <AlertCircle className="w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 text-red-500" />
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-red-600">
-                Error Occurred
+                {t('error')}
               </h3>
-              <p className="mb-6 text-sm md:text-base text-red-700">
+              <p className="mb-6 text-sm md:text-base text-red-700 dark:text-red-400">
                 {error}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -293,13 +305,13 @@ export function CoverLetterPreview() {
                   onClick={handleRetry}
                   className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
                 >
-                  Retry
+                  {t('retry')}
                 </button>
                 <button
                   onClick={handleBackClick}
-                  className="px-6 py-2 rounded-lg transition-colors bg-gray-200 hover:bg-gray-300 text-gray-800"
+                  className="px-6 py-2 rounded-lg transition-colors bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200"
                 >
-                  Back to Home
+                  {t('back')}
                 </button>
               </div>
             </div>
@@ -317,39 +329,39 @@ export function CoverLetterPreview() {
 
         {/* Image Preview (shown on both desktop and mobile) */}
         {!isLoading && !error && (
-          <div className="w-full max-w-xl mx-auto">
-            <div className="rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-lg">
+          <div className="w-full max-w-2xl mx-auto">
+            <div className="rounded-2xl overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg">
               <div className="p-4 md:p-6 pb-4">
                 <div className="flex sm:flex-row flex-col justify-between items-center w-full gap-4 mb-4">
                   <div className="flex items-center gap-3">
                     <FileText className="w-5 h-5 md:w-6 md:h-6" />
                     <h2 className="text-xl md:text-2xl font-bold">
-                      Cover Letter
+                      {title}
                     </h2>
                   </div>
                   <button
                     onClick={downloadPdf}
-                    className="px-6 py-2 rounded-full bg-black text-white font-semibold shadow-lg opacity-90 hover:opacity-100 transition-all"
+                    className="px-6 py-2 rounded-full bg-black dark:bg-gray-700 text-white font-semibold shadow-lg opacity-90 hover:opacity-100 transition-all"
                     style={{ minWidth: '120px' }}
                   >
-                    Download File
+                    {t('download')}
                   </button>
                 </div>
               </div>
               <div className="px-4 md:px-6 pb-4 md:pb-6">
-                <div className="relative w-full p-8 rounded-xl border-2 text-center transition-all duration-300 border-gray-200 hover:border-gray-300 bg-gray-50">
+                <div className="relative w-full p-6 sm:p-8 rounded-xl border-2 text-center transition-all duration-300 border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 bg-gray-50 dark:bg-gray-700">
                   {mobileImageLoading ? (
                     <div className="flex flex-col items-center justify-center min-h-[200px]">
                       <Loader2 className="w-12 h-12 animate-spin text-blue-500 mb-4" />
-                      <p className="text-sm text-gray-600">
-                        Loading preview...
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {t('processing')}
                       </p>
                     </div>
                   ) : mobileImageUrls.length === 0 ? (
                     <div className="flex flex-col items-center justify-center min-h-[200px]">
                       <AlertCircle className="w-12 h-12 text-yellow-500 mb-4" />
-                      <p className="text-sm text-gray-600">
-                        No preview available. Please try again.
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {t('error')}
                       </p>
                     </div>
                   ) : mobileImageUrls.length > 0 ? (
@@ -364,14 +376,14 @@ export function CoverLetterPreview() {
                           />
                          
                           {idx === 0 ? (
-                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 text-white text-center">
-                              <p className="text-sm font-medium">Preview Only - Pay to Access Full Content</p>
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4 text-white text-center rounded-b-lg">
+                              <p className="text-sm font-medium">{t('preview')}</p>
                             </div>
                           ) : (
                             <div className="absolute flex-col inset-0 bg-black bg-opacity-70 transition-opacity duration-300 rounded-lg flex items-center justify-center">
                               <MdOutlineRemoveRedEye className='text-white' size={40} />
                               <span className="text-white text-lg font-semibold">
-                                Pay To Unlock Full Content
+                                {t('preview')}
                               </span>
                             </div>
                           )}
@@ -389,15 +401,15 @@ export function CoverLetterPreview() {
                   >
                     <img
                       src={fullScreenImg}
-                      alt="Full Screen Cover Letter Preview"
+                      alt={t('preview')}
                       className="max-w-full max-h-full object-contain rounded shadow-2xl"
                       style={{ boxShadow: '0 0 40px 8px rgba(0,0,0,0.7)' }}
                       onClick={e => e.stopPropagation()}
                     />
                     <button
-                      className="absolute top-4 right-4 p-2 rounded-full bg-black bg-opacity-60 hover:bg-opacity-80 text-white"
+                      className="absolute top-4 right-4 p-2 rounded-full bg-black bg-opacity-60 hover:bg-opacity-80 text-white backdrop-blur-sm"
                       onClick={() => setFullScreenImg(null)}
-                      aria-label="Close full screen preview"
+                      aria-label={t('back')}
                       style={{ zIndex: 60 }}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>

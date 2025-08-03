@@ -66,6 +66,49 @@ const translations = {
     apiServices: 'خدمات API',
     operational: 'يعمل',
     healthy: 'سليم',
+    
+    // Theme Toggle
+    dark: 'داكن',
+    light: 'فاتح',
+    switchToDark: 'التبديل إلى الوضع الداكن',
+    switchToLight: 'التبديل إلى الوضع الفاتح',
+    
+    // Common UI
+    back: 'رجوع',
+    upload: 'رفع',
+    cancel: 'إلغاء',
+    download: 'تحميل',
+    preview: 'معاينة',
+    processing: 'جاري المعالجة...',
+    pleaseWait: 'يرجى الانتظار',
+    refreshing: 'جاري التحديث',
+    retry: 'إعادة المحاولة',
+    error: 'خطأ',
+    success: 'نجح',
+    
+    // File Upload
+    dragDropFile: 'اسحب وأفلت ملف PDF هنا',
+    clickToUpload: 'انقر للرفع',
+    orDragDrop: 'أو اسحب وأفلت',
+    pdfFilesOnly: 'ملفات PDF فقط (حد أقصى 10 ميجابايت)',
+    fileSelected: 'تم اختيار الملف',
+    removeFile: 'إزالة الملف',
+    uploadFailed: 'فشل في الرفع. يرجى المحاولة مرة أخرى.',
+    
+    // Forms
+    companyName: 'اسم الشركة',
+    companyLocation: 'موقع الشركة',
+    jobTitle: 'المسمى الوظيفي',
+    jobDescription: 'الوصف الوظيفي',
+    enterCompanyName: 'أدخل اسم الشركة',
+    enterCompanyLocation: 'أدخل موقع الشركة',
+    enterJobTitle: 'أدخل المسمى الوظيفي',
+    enterJobDescription: 'أدخل الوصف الوظيفي (50 حرف على الأقل)',
+    
+    // Navigation
+    cvEnhancement: 'تحسين السيرة الذاتية',
+    coverLetter: 'خطاب التغطية',
+    linkedinOptimization: 'تحسين لينكد إن',
   },
   en: {
     // Login Page
@@ -126,6 +169,49 @@ const translations = {
     apiServices: 'API Services',
     operational: 'Operational',
     healthy: 'Healthy',
+    
+    // Theme Toggle
+    dark: 'Dark',
+    light: 'Light',
+    switchToDark: 'Switch to dark mode',
+    switchToLight: 'Switch to light mode',
+    
+    // Common UI
+    back: 'Back',
+    upload: 'Upload',
+    cancel: 'Cancel',
+    download: 'Download',
+    preview: 'Preview',
+    processing: 'Processing...',
+    pleaseWait: 'Please wait',
+    refreshing: 'Refreshing',
+    retry: 'Retry',
+    error: 'Error',
+    success: 'Success',
+    
+    // File Upload
+    dragDropFile: 'Drag and drop a PDF file here',
+    clickToUpload: 'Click to upload',
+    orDragDrop: 'or drag and drop',
+    pdfFilesOnly: 'PDF files only (max 10MB)',
+    fileSelected: 'File selected',
+    removeFile: 'Remove file',
+    uploadFailed: 'Failed to upload. Please try again.',
+    
+    // Forms
+    companyName: 'Company Name',
+    companyLocation: 'Company Location',
+    jobTitle: 'Job Title',
+    jobDescription: 'Job Description',
+    enterCompanyName: 'Enter company name',
+    enterCompanyLocation: 'Enter company location',
+    enterJobTitle: 'Enter job title',
+    enterJobDescription: 'Enter job description (minimum 50 characters)',
+    
+    // Navigation
+    cvEnhancement: 'CV Enhancement',
+    coverLetter: 'Cover Letter',
+    linkedinOptimization: 'LinkedIn Optimization',
   }
 };
 

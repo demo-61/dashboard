@@ -58,26 +58,26 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const fontFamilyClass = language === "ar" ? "font-riwaya" : "font-hagrid";
 
   return (
-    <div className={`min-h-screen flex  justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 ${fontFamilyClass} ${language === 'ar' ? 'ltr' : 'ltr'}`}>
-      <div className="max-w-md w-full mx-4">
+    <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors ${fontFamilyClass} ${language === 'ar' ? 'rtl' : 'ltr'}`}>
+      <div className="max-w-md w-full mx-4 sm:mx-6">
         {/* Language and Theme Toggles */}
-        <div className="flex justify-between mb-6 sm:mt-0 mt-3 ">
+        <div className="flex justify-between mb-6 sm:mb-8">
           <LanguageToggle />
           <ThemeToggle />
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-8">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8 transition-colors">
           {/* Header */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6 sm:mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full mb-4">
               <Lock className="w-8 h-8 text-gray-800 dark:text-gray-200" />
             </div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('adminLogin')}</h1>
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">{t('adminLogin')}</h1>
             <p className="text-gray-600 dark:text-gray-400">{t('resumeEnhancerDashboard')}</p>
           </div>
 
           {/* Login Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {error && (
               <div className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200 px-4 py-3 rounded-lg text-sm">
                 {error}
@@ -141,7 +141,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gray-900 dark:bg-gray-700 text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-600 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gray-900 dark:bg-gray-700 text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-600 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
